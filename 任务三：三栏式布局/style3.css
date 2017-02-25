@@ -1,0 +1,47 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+html,body{
+	width:100%;
+}
+.container{
+	margin:20px;
+	padding:20px;
+	background-color: #ccc;
+	border:1px solid #999;
+	overflow: auto;
+}
+.left-bar{
+	width:160px;
+	padding: 20px;
+	background-color: #fff;
+	overflow: auto;
+	float: left;
+}
+.team-logo{
+	width:80px;
+	height: 80px;
+	float: left;
+}
+.team-name{
+	float: left;
+	margin-left:10px;
+}
+.main{
+	margin:0 20px;
+	background-color: #fff;
+	float: left;
+	height: 300px;
+}
+.right-bar{
+	width:120px;
+	padding:10px 0;
+	background-color: #fff;
+	float: left;
+}
+.member-logo{
+	width:80px;
+	height: 80px;
+	margin:10px 20px;
+}

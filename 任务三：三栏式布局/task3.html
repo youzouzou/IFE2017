@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task3</title>
+	<link href="style3.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<div class="left-bar">
+			<img class="team-logo">
+			<label class="team-name">团队名称</label>
+		</div>
+		<div class="main" id="main">
+			aaaa
+		</div>
+		<div class="right-bar">
+			<img class="member-logo" />
+			<img class="member-logo" />
+			<img class="member-logo" />
+			<img class="member-logo" />
+			<img class="member-logo" />
+		</div>
+	</div>
+	<script>
+	var body=document.getElementsByTagName("body")[0];
+	document.getElementById('main').style.width=(body.scrollWidth-460)+"px";
+	window.onresize=function(){
+		document.getElementById('main').style.width=(body.scrollWidth-460)+"px";	
+	}
+	</script>
+</body>
+</html>
