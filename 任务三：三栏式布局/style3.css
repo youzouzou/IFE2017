@@ -4,13 +4,14 @@
 }
 html,body{
 	width:100%;
+	overflow: hidden;
 }
 .container{
 	margin:20px;
 	padding:20px;
 	background-color: #ccc;
 	border:1px solid #999;
-	overflow: auto;
+	overflow: hidden;
 }
 .left-bar{
 	width:160px;
