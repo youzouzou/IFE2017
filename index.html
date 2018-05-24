@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">-->
+    <title>Title</title>
+    <script src="three.min.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="jquery.min.js"></script>
+    <style>
+        #maindiv {
+            width: 100%;
+            height: 600px;
+            padding: 0px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="maindiv"></div>
+
+<script>
+    var height = window.innerHeight;
+    var width = $('#maindiv').width();
+    var scene, camera, renderer, light, controls;
+    function initscene() {
+        scene = new THREE.Scene();
+        //   console.log(scene)
+    }
+    function initcamera() {
+        camera = new THREE.PerspectiveCamera(45, width / height, 1, 4000);
+        camera.position.set(600, 0, 3500);
+        camera.lookAt(scene.position)
+        //   console.log(camera)
+    }
+    function initrenderer() {
+        renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            precision: "highp",
+            alpha: true
+        });
+        document.getElementById('maindiv').appendChild(renderer.domElement)
+        renderer.setClearColor(0x000000, 0.5);
+        renderer.setSize(width, height);
+        // console.log(renderer)
+    }
+    function initlight(x,y,z) {
+        light = new THREE.PointLight(0xffffff);
+        light.position.set(x,y,z);
+        scene.add(light);
+    }
+    function initcontrols() {
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+    }
+    initscene();
+    initcamera();
+    initlight(1000,0,1000);
+    initrenderer();
+    initcontrols();
+    //initfuntion over
+    function createbox(obj) {
+        geometry = new THREE.BoxBufferGeometry(obj.geometry.x, obj.geometry.y, obj.geometry.z);
+        materil = new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+        })
+        //materil.map=
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        //console.log(mesh)
+        return mesh;
+    }
+    function createplane(obj) {
+        geometry = new THREE.PlaneBufferGeometry(obj.geometry.x, obj.geometry.y);
+        materil = new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+        });
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        return mesh;
+    }
+    function createsphere(obj) {
+        geometry = new THREE.SphereBufferGeometry(obj.geometry.x, obj.geometry.y, obj.geometry.z);
+        materil = new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+        });
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        return mesh;
+    }
+    function createcircle(obj) {
+        geometry = new THREE.CircleBufferGeometry(obj.geometry.x, obj.geometry.y);
+        materil = new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+        });
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        return mesh;
+    }
+    function createcylinder(obj) {
+        if (obj.geometry.open) {
+            open = true
+        } else {
+            open = false
+        }
+        geometry = new THREE.CylinderBufferGeometry(obj.geometry.x, obj.geometry.y, obj.geometry.x,24,3, open);
+        materil = new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+            transparent: true,
+            opacity:0.5
+        });
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        return mesh;
+    }
+    function createtorus(obj) {
+        var objectMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff, roughness: 0.5, metalness: 2.0 } );
+
+        geometry = new THREE.TorusBufferGeometry(obj.geometry.x,obj.geometry.y,24,36)
+        materil = objectMaterial;/*new THREE.MeshBasicMaterial({
+            color: obj.style.color,
+        });*/
+        mesh = new THREE.Mesh(geometry, materil);
+        if (obj.position) {
+            mesh.position.set(obj.position.x, obj.position.y, obj.position.z);
+        }
+        if (obj.rotation) {
+            mesh.rotation.set(obj.rotation.x, obj.rotation.y, obj.rotation.z);
+        }
+        scene.add(mesh)
+        return mesh;
+    }
+    var obje = {
+        geometry: {
+            x: 1000,
+            y: 0.1,
+            z: 700
+        },
+        position: {
+            x: 0,
+            y: 100,
+            z: 0
+        },
+        style: {
+            color: 0xffff00
+        }
+    }
+
+    var sphere = {
+        geometry: {
+            x: 100,
+            y: 12,
+            z: 12
+        },
+        position: {
+            x: 0,
+            y: 100,
+            z: 0
+        },
+        style: {
+            color: 0xff0000
+        }
+    }
+    var plan = {
+        geometry: {
+            x: 1000,
+            y: 700
+        },
+        position: {
+            x: 0,
+            y: -180,
+            z: 0
+        },
+        rotation: {
+            x: -Math.PI / 2,
+            y: 0,
+            z: 0
+        },
+        style: {
+            color: 0xff0000
+        }
+    }
+
+    var geom1 = {
+        geometry: {
+            x: 1000,
+            y: 0.1,
+            z: 700
+        },
+
+        rotation: {
+            x: -Math.PI / 2,
+            y: 0,
+            z: 0
+        },
+
+        style: {
+            color: 0x00ff00
+        }
+    }
+    var circle = {
+        geometry: {
+            x: 400,
+            y: 24
+        },
+        position: {
+            x: -100,
+            y: -150,
+            z: 100
+        },
+        rotation: {
+            x: -Math.PI / 2,
+            y: 0,
+            z: 0
+        },
+
+        style: {
+            color: 0xffffff
+        }
+    }
+    var cylinder = {
+        geometry: {
+            x: 200,
+            y: 200,
+            z:50,
+            open:false
+        },
+        position: {
+            x: -100,
+            y: -180,
+            z: 100
+        },
+        rotation: {
+            x: 0,
+            y: 0,
+            z: 0
+        },
+
+        style: {
+            color: 0xffffff
+        }
+    }
+    var torus = {
+        geometry: {
+            x: 200,
+            y: 20
+        },
+        position: {
+            x: -100,
+            y: 80,
+            z: 100
+        },
+        rotation: {
+            x: 0,
+            y: 0,
+            z: 0
+        },
+
+        style: {
+            color: 0x0040ff
+        }
+    }
+    createtorus(torus)
+//    createcircle(circle)
+//    createplane(plan)
+//    createbox(obje)
+//    createbox(geom1)
+//    createsphere(sphere);
+  createcylinder(cylinder);
+
+    //begin render
+    function animate() {
+        requestAnimationFrame(animate)
+        renderer.render(scene, camera)
+    }
+    animate();
+</script>
+
+</body>
+</html>
